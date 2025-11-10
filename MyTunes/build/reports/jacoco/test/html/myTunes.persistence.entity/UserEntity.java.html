@@ -11,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-<span class="nc bnc" id="L14" title="All 38 branches missed.">@Data</span>
-<span class="nc" id="L15">@Builder</span>
-<span class="nc" id="L16">@AllArgsConstructor</span>
+<span class="pc bpc" id="L14" title="27 of 38 branches missed.">@Data</span>
+<span class="pc" id="L15">@Builder</span>
+<span class="fc" id="L16">@AllArgsConstructor</span>
 <span class="nc" id="L17">@NoArgsConstructor</span>
 @Entity
 @Table(name = &quot;user&quot;)
@@ -21,16 +21,16 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = &quot;id&quot;)
-<span class="nc" id="L24">    private Long id;</span>
+<span class="fc" id="L24">    private Long id;</span>
     @NotBlank
     @Length(min = 2, max = 20)
     @Column(name = &quot;username&quot;)
-<span class="nc" id="L28">    private String username;</span>
+<span class="fc" id="L28">    private String username;</span>
     @Column(name = &quot;password&quot;)
     @Length(max = 200)
-<span class="nc" id="L31">    private String password;</span>
+<span class="fc" id="L31">    private String password;</span>
     @Column(name = &quot;email&quot;)
     @Length(max = 50)
-<span class="nc" id="L34">    private String email;</span>
+<span class="fc" id="L34">    private String email;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

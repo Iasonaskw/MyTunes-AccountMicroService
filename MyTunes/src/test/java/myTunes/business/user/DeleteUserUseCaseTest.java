@@ -1,4 +1,4 @@
-package myTunes.business;
+package myTunes.business.user;
 
 import myTunes.business.user.DeleteUserUseCase;
 import myTunes.business.user.impl.DeleteUserUseCaseImpl;
