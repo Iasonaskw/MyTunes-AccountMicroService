@@ -6,13 +6,18 @@ import myTunes.domain.AccessToken;
 import myTunes.domain.login.LoginRequest;
 import myTunes.domain.login.LoginResponse;
 import myTunes.persistence.UserRepository;
+import myTunes.persistence.entity.RoleEnum;
 import myTunes.persistence.entity.UserEntity;
+import myTunes.persistence.entity.UserRoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,25 +40,34 @@ public class LoginUseCaseTest {
                 .username("Tom")
                 .password("pass")
                 .build();
-        UserEntity userEntity = UserEntity.builder()
+        UserEntity accountEntity = UserEntity.builder()
                 .id(1L)
                 .username("Tom")
                 .password("pass")
                 .email("tom@gmail.com")
                 .build();
+        accountEntity.setUserRoles(Set.of(
+                UserRoleEntity.builder()
+                        .user(accountEntity)
+                        .role(RoleEnum.USER)
+                        .build()));
+        List<String> roles = accountEntity.getUserRoles().stream()
+                .map(userRole -> userRole.getRole().toString())
+                .toList();
         AccessToken token = AccessToken.builder()
-                .userId(userEntity.getId())
-                .subject(userEntity.getUsername())
+                .userId(accountEntity.getId())
+                .roles(roles)
+                .subject(accountEntity.getUsername())
                 .build();
         String returnedToken = "token";
         LoginResponse expectedResponse = LoginResponse.builder().accessToken(returnedToken).build();
-        when(userRepository.findByUsername(request.getUsername())).thenReturn(userEntity);
-        when(passwordEncoder.matches(request.getPassword(), userEntity.getPassword())).thenReturn(true);
+        when(userRepository.findByUsername(request.getUsername())).thenReturn(accountEntity);
+        when(passwordEncoder.matches(request.getPassword(), accountEntity.getPassword())).thenReturn(true);
         when(accessTokenEncoder.encode(token)).thenReturn(returnedToken);
         LoginResponse actualResponse = useCase.login(request);
         assertEquals(actualResponse, expectedResponse);
         verify(userRepository).findByUsername(request.getUsername());
-        verify(passwordEncoder).matches(request.getPassword(), userEntity.getPassword());
+        verify(passwordEncoder).matches(request.getPassword(), accountEntity.getPassword());
         verify(accessTokenEncoder).encode(token);
     }
     @Test
@@ -63,7 +77,7 @@ public class LoginUseCaseTest {
                 .password("pass")
                 .build();
         when(userRepository.findByUsername(request.getUsername())).thenReturn(null);
-        assertThrows(InvalidCredentialsException.class, () -> {
+        assertThrows(InvalidCredentialException.class, () -> {
             useCase.login(request);
         });
         verify(userRepository).findByUsername(request.getUsername());
@@ -74,18 +88,23 @@ public class LoginUseCaseTest {
                 .username("Tom")
                 .password("pass")
                 .build();
-        UserEntity userEntity = UserEntity.builder()
+        UserEntity accountEntity = UserEntity.builder()
                 .id(1L)
                 .username("Tom")
                 .password("pass")
                 .email("tom@gmail.com")
                 .build();
-        when(userRepository.findByUsername(request.getUsername())).thenReturn(userEntity);
-        when(passwordEncoder.matches(request.getPassword(), userEntity.getPassword())).thenReturn(false);
-        assertThrows(InvalidCredentialsException.class, () -> {
+        accountEntity.setUserRoles(Set.of(
+                UserRoleEntity.builder()
+                        .user(accountEntity)
+                        .role(RoleEnum.USER)
+                        .build()));
+        when(userRepository.findByUsername(request.getUsername())).thenReturn(accountEntity);
+        when(passwordEncoder.matches(request.getPassword(), accountEntity.getPassword())).thenReturn(false);
+        assertThrows(InvalidCredentialException.class, () -> {
             useCase.login(request);
         });
         verify(userRepository).findByUsername(request.getUsername());
-        verify(passwordEncoder).matches(request.getPassword(), userEntity.getPassword());
+        verify(passwordEncoder).matches(request.getPassword(), accountEntity.getPassword());
     }
 }

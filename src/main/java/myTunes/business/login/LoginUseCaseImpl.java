@@ -10,6 +10,8 @@ import myTunes.persistence.entity.UserEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -37,9 +39,15 @@ public class LoginUseCaseImpl implements LoginUseCase{
     }
 
     private String generateAccessToken(UserEntity user) {
+        List<String> roles = user.getUserRoles().stream()
+                .map(userRole -> userRole.getRole().toString())
+                .toList();
+
         return accessTokenEncoder.encode(
                 AccessToken.builder()
                         .subject(user.getUsername())
+                        .roles(roles)
+                        .userId(user.getId())
                         .build());
     }
 }

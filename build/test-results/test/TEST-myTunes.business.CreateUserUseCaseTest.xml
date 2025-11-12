@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="myTunes.business.CreateUserUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-11-10T11:49:50" hostname="DESKTOP-517IG1Q" time="1.228">
-  <properties/>
-  <testcase name="testCreatingUserWithExistingUsername()" classname="myTunes.business.CreateUserUseCaseTest" time="1.214"/>
-  <testcase name="createUser()" classname="myTunes.business.CreateUserUseCaseTest" time="0.013"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -10,37 +10,45 @@ import myTunes.persistence.entity.UserEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
-<span class="nc" id="L15">@RequiredArgsConstructor</span>
+<span class="fc" id="L17">@RequiredArgsConstructor</span>
 public class LoginUseCaseImpl implements LoginUseCase{
     private final UserRepository userRepository;
     private  final PasswordEncoder passwordEncoder;
     private final AccessTokenEncoder accessTokenEncoder;
     @Override
     public LoginResponse login(LoginRequest request) {
-<span class="nc" id="L22">        UserEntity user = userRepository.findByUsername(request.getUsername());</span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">        if (user == null) {</span>
-<span class="nc" id="L24">            throw new InvalidCredentialException();</span>
+<span class="fc" id="L24">        UserEntity user = userRepository.findByUsername(request.getUsername());</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L26">            throw new InvalidCredentialException();</span>
         }
 
-<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (!matchesPassword(request.getPassword(), user.getPassword())) {</span>
-<span class="nc" id="L28">            throw new InvalidCredentialException();</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (!matchesPassword(request.getPassword(), user.getPassword())) {</span>
+<span class="fc" id="L30">            throw new InvalidCredentialException();</span>
         }
 
-<span class="nc" id="L31">        String accessToken = generateAccessToken(user);</span>
-<span class="nc" id="L32">        return LoginResponse.builder().accessToken(accessToken).build();</span>
+<span class="nc" id="L33">        String accessToken = generateAccessToken(user);</span>
+<span class="nc" id="L34">        return LoginResponse.builder().accessToken(accessToken).build();</span>
     }
 
     private boolean matchesPassword(String rawPassword, String encodedPassword) {
-<span class="nc" id="L36">        return passwordEncoder.matches(rawPassword, encodedPassword);</span>
+<span class="fc" id="L38">        return passwordEncoder.matches(rawPassword, encodedPassword);</span>
     }
 
     private String generateAccessToken(UserEntity user) {
-<span class="nc" id="L40">        return accessTokenEncoder.encode(</span>
-<span class="nc" id="L41">                AccessToken.builder()</span>
-<span class="nc" id="L42">                        .subject(user.getUsername())</span>
-<span class="nc" id="L43">                        .build());</span>
+<span class="nc" id="L42">        List&lt;String&gt; roles = user.getUserRoles().stream()</span>
+<span class="nc" id="L43">                .map(userRole -&gt; userRole.getRole().toString())</span>
+<span class="nc" id="L44">                .toList();</span>
+
+<span class="nc" id="L46">        return accessTokenEncoder.encode(</span>
+<span class="nc" id="L47">                AccessToken.builder()</span>
+<span class="nc" id="L48">                        .subject(user.getUsername())</span>
+<span class="nc" id="L49">                        .roles(roles)</span>
+<span class="nc" id="L50">                        .userId(user.getId())</span>
+<span class="nc" id="L51">                        .build());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

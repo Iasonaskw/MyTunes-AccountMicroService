@@ -6,21 +6,24 @@ import myTunes.business.user.GetUserUseCase;
 import myTunes.domain.AccessToken;
 import myTunes.domain.user.User;
 import myTunes.persistence.UserRepository;
+import myTunes.persistence.entity.RoleEnum;
 import myTunes.persistence.entity.UserEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-<span class="nc" id="L14">@AllArgsConstructor</span>
+<span class="nc" id="L15">@AllArgsConstructor</span>
 public class GetUserUseCaseImpl implements GetUserUseCase {
     private final UserRepository userRepository;
     private AccessToken accessToken;
     @Override
     public Optional&lt;User&gt; getUser(long userId) {
-<span class="nc bnc" id="L20" title="All 2 branches missed.">        if (this.accessToken.getUserId() != userId) {</span>
-<span class="nc" id="L21">            throw new UnauthorizedDataAccessException(&quot;USER_ID_NOT_FROM_LOGGED_IN_USER&quot;);</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if(!accessToken.hasRole(RoleEnum.ADMIN.name())) {</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">            if(accessToken.getUserId() != userId){</span>
+<span class="nc" id="L23">                throw new UnauthorizedDataAccessException(&quot;USER_ID_NOT_FROM_LOGGED_IN_USER&quot;);</span>
+            }
         }
-<span class="nc" id="L23">        return this.userRepository.findById(userId).map(UserConverter :: covert);</span>
+<span class="nc" id="L26">        return this.userRepository.findById(userId).map(UserConverter :: covert);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

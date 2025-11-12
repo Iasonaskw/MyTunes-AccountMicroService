@@ -2,7 +2,7 @@
 
 import lombok.AllArgsConstructor;
 import myTunes.business.user.UpdateUserUseCase;
-import myTunes.business.user.exception.InvalidUserexception;
+import myTunes.business.user.exception.InvalidUserException;
 import myTunes.domain.user.UpdateUserRequest;
 import myTunes.persistence.UserRepository;
 import myTunes.persistence.entity.UserEntity;
@@ -18,7 +18,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     public void updateUser(UpdateUserRequest request) {
 <span class="nc" id="L19">        Optional&lt;UserEntity&gt; userOptional = userRepository.findById(request.getId());</span>
 <span class="nc bnc" id="L20" title="All 2 branches missed.">        if(userOptional.isEmpty()){</span>
-<span class="nc" id="L21">            throw new InvalidUserexception(&quot;USER_ID_INVALID&quot;);</span>
+<span class="nc" id="L21">            throw new InvalidUserException(&quot;USER_ID_INVALID&quot;);</span>
         }
 
 <span class="nc" id="L24">        UserEntity user = userOptional.get();</span>
