@@ -8,19 +8,19 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = &quot;user_role&quot;)
 <span class="pc" id="L10">@Builder</span>
-<span class="nc bnc" id="L11" title="All 22 branches missed.">@Data</span>
+<span class="pc bpc" id="L11" title="15 of 22 branches missed.">@Data</span>
 <span class="fc" id="L12">@AllArgsConstructor</span>
 <span class="nc" id="L13">@NoArgsConstructor</span>
 public class UserRoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = &quot;id&quot;)
-<span class="nc" id="L18">    private  Long id;</span>
+<span class="fc" id="L18">    private  Long id;</span>
 
     @NotNull
     @Column(name = &quot;role_name&quot;)
     @Enumerated(EnumType.STRING)
-<span class="nc" id="L23">    private RoleEnum role;</span>
+<span class="fc" id="L23">    private RoleEnum role;</span>
 
     @ManyToOne
     @JoinColumn(name = &quot;account_id&quot;)

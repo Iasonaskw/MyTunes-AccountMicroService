@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
-<span class="pc bnc" id="L15" title="All 46 branches missed.">@Data</span>
+<span class="pc bpc" id="L15" title="33 of 46 branches missed.">@Data</span>
 <span class="pc" id="L16">@Builder</span>
 <span class="fc" id="L17">@AllArgsConstructor</span>
 <span class="nc" id="L18">@NoArgsConstructor</span>
@@ -22,19 +22,19 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = &quot;id&quot;)
-<span class="nc" id="L25">    private Long id;</span>
+<span class="fc" id="L25">    private Long id;</span>
     @NotBlank
     @Length(min = 2, max = 20)
     @Column(name = &quot;username&quot;)
-<span class="nc" id="L29">    private String username;</span>
+<span class="fc" id="L29">    private String username;</span>
     @Column(name = &quot;password&quot;)
     @Length(max = 200)
 <span class="fc" id="L32">    private String password;</span>
     @Column(name = &quot;email&quot;)
     @Length(max = 50)
-<span class="nc" id="L35">    private String email;</span>
+<span class="fc" id="L35">    private String email;</span>
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = &quot;user_id&quot;)
-<span class="nc" id="L38">    private Set&lt;UserRoleEntity&gt; userRoles;</span>
+<span class="fc" id="L38">    private Set&lt;UserRoleEntity&gt; userRoles;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

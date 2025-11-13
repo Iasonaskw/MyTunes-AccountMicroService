@@ -22,16 +22,16 @@ public class LoginUseCaseImpl implements LoginUseCase{
     @Override
     public LoginResponse login(LoginRequest request) {
 <span class="fc" id="L24">        UserEntity user = userRepository.findByUsername(request.getUsername());</span>
-<span class="pc bpc" id="L25" title="1 of 2 branches missed.">        if (user == null) {</span>
-<span class="nc" id="L26">            throw new InvalidCredentialException();</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (user == null) {</span>
+<span class="fc" id="L26">            throw new InvalidCredentialException();</span>
         }
 
-<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (!matchesPassword(request.getPassword(), user.getPassword())) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (!matchesPassword(request.getPassword(), user.getPassword())) {</span>
 <span class="fc" id="L30">            throw new InvalidCredentialException();</span>
         }
 
-<span class="nc" id="L33">        String accessToken = generateAccessToken(user);</span>
-<span class="nc" id="L34">        return LoginResponse.builder().accessToken(accessToken).build();</span>
+<span class="fc" id="L33">        String accessToken = generateAccessToken(user);</span>
+<span class="fc" id="L34">        return LoginResponse.builder().accessToken(accessToken).build();</span>
     }
 
     private boolean matchesPassword(String rawPassword, String encodedPassword) {
@@ -39,16 +39,16 @@ public class LoginUseCaseImpl implements LoginUseCase{
     }
 
     private String generateAccessToken(UserEntity user) {
-<span class="nc" id="L42">        List&lt;String&gt; roles = user.getUserRoles().stream()</span>
-<span class="nc" id="L43">                .map(userRole -&gt; userRole.getRole().toString())</span>
-<span class="nc" id="L44">                .toList();</span>
+<span class="fc" id="L42">        List&lt;String&gt; roles = user.getUserRoles().stream()</span>
+<span class="fc" id="L43">                .map(userRole -&gt; userRole.getRole().toString())</span>
+<span class="fc" id="L44">                .toList();</span>
 
-<span class="nc" id="L46">        return accessTokenEncoder.encode(</span>
-<span class="nc" id="L47">                AccessToken.builder()</span>
-<span class="nc" id="L48">                        .subject(user.getUsername())</span>
-<span class="nc" id="L49">                        .roles(roles)</span>
-<span class="nc" id="L50">                        .userId(user.getId())</span>
-<span class="nc" id="L51">                        .build());</span>
+<span class="fc" id="L46">        return accessTokenEncoder.encode(</span>
+<span class="fc" id="L47">                AccessToken.builder()</span>
+<span class="fc" id="L48">                        .subject(user.getUsername())</span>
+<span class="fc" id="L49">                        .roles(roles)</span>
+<span class="fc" id="L50">                        .userId(user.getId())</span>
+<span class="fc" id="L51">                        .build());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
