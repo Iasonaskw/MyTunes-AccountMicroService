@@ -82,12 +82,16 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: gradle
-
+          
+      - name: Generate Gradle wrapper (7.6.4)
+        run: gradle wrapper --gradle-version 7.6.4 --distribution-type bin
+        
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
       - name: Build JAR
         run: ./gradlew clean bootJar --no-daemon
+        
       - name: Build a Docker image
         run: docker build -t moodify/tracker-service .
 
