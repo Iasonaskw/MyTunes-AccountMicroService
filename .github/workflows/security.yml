@@ -103,7 +103,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: moodify/tracker-service
-          args: --file=./Dockerfile
+          args: --file=./Dockerfile --sarif-file-output=snyk.sarif
 
       - name: Remove duplicate runs from Snyk results
         run: jq '.runs |= unique_by({tool, invocations})' snyk.sarif > unique_snyk.sarif
