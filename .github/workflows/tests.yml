@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: ["main", "develop"]
 
+  workflow_dispatch:
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -19,6 +21,12 @@ jobs:
           distribution: temurin
           java-version: 17
           cache: gradle
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Generate Gradle wrapper (7.6.4)
+        run: gradle wrapper --gradle-version 7.6.4 --distribution-type bin
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew

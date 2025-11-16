@@ -53,13 +53,18 @@ test {
 jacocoTestReport {
     dependsOn test
     reports {
-        xml.enabled true
+        xml.required.set(true)   // was: xml.enabled true
+        html.required.set(true)  // optional but handy
+        // csv.required.set(false) // optional
     }
-    afterEvaluate {
-        classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                    "**/configuration/*"
-            ])
-        }))
-    }
+
+    // keep your exclusions; updated form is fine on Gradle 7/8
+    def excludes = [
+            "**/configuration/*"
+    ]
+    classDirectories.setFrom(
+            files(classDirectories.files.collect {
+                fileTree(dir: it, exclude: excludes)
+            })
+    )
 }

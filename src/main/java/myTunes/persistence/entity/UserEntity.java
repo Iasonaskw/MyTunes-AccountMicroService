@@ -10,13 +10,14 @@ import javax.persistence.*;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +33,7 @@ public class UserEntity {
     @Column(name = "email")
     @Length(max = 50)
     private String email;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private Set<UserRoleEntity> userRoles;
 }

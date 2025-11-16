@@ -2,7 +2,7 @@ package myTunes.business.user.impl;
 
 import lombok.AllArgsConstructor;
 import myTunes.business.user.UpdateUserUseCase;
-import myTunes.business.user.exception.InvalidUserexception;
+import myTunes.business.user.exception.InvalidUserException;
 import myTunes.domain.user.UpdateUserRequest;
 import myTunes.persistence.UserRepository;
 import myTunes.persistence.entity.UserEntity;
@@ -18,7 +18,7 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     public void updateUser(UpdateUserRequest request) {
         Optional<UserEntity> userOptional = userRepository.findById(request.getId());
         if(userOptional.isEmpty()){
-            throw new InvalidUserexception("USER_ID_INVALID");
+            throw new InvalidUserException("USER_ID_INVALID");
         }
 
         UserEntity user = userOptional.get();
