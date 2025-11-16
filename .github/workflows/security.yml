@@ -58,7 +58,7 @@ jobs:
         include:
           - language: actions
             build-mode: none
-          - language: Java 17
+          - language: Java/Kotlin
             build-mode: autobuild
 
     runs-on: ubuntu-latest
