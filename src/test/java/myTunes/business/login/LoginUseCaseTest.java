@@ -40,34 +40,34 @@ public class LoginUseCaseTest {
                 .username("Tom")
                 .password("pass")
                 .build();
-        UserEntity accountEntity = UserEntity.builder()
+        UserEntity userEntity = UserEntity.builder()
                 .id(1L)
                 .username("Tom")
                 .password("pass")
                 .email("tom@gmail.com")
                 .build();
-        accountEntity.setUserRoles(Set.of(
+        userEntity.setUserRoles(Set.of(
                 UserRoleEntity.builder()
-                        .user(accountEntity)
+                        .user(userEntity)
                         .role(RoleEnum.USER)
                         .build()));
-        List<String> roles = accountEntity.getUserRoles().stream()
+        List<String> roles = userEntity.getUserRoles().stream()
                 .map(userRole -> userRole.getRole().toString())
                 .toList();
         AccessToken token = AccessToken.builder()
-                .userId(accountEntity.getId())
+                .userId(userEntity.getId())
                 .roles(roles)
-                .subject(accountEntity.getUsername())
+                .subject(userEntity.getUsername())
                 .build();
         String returnedToken = "token";
         LoginResponse expectedResponse = LoginResponse.builder().accessToken(returnedToken).build();
-        when(userRepository.findByUsername(request.getUsername())).thenReturn(accountEntity);
-        when(passwordEncoder.matches(request.getPassword(), accountEntity.getPassword())).thenReturn(true);
+        when(userRepository.findByUsername(request.getUsername())).thenReturn(userEntity);
+        when(passwordEncoder.matches(request.getPassword(), userEntity.getPassword())).thenReturn(true);
         when(accessTokenEncoder.encode(token)).thenReturn(returnedToken);
         LoginResponse actualResponse = useCase.login(request);
         assertEquals(actualResponse, expectedResponse);
         verify(userRepository).findByUsername(request.getUsername());
-        verify(passwordEncoder).matches(request.getPassword(), accountEntity.getPassword());
+        verify(passwordEncoder).matches(request.getPassword(), userEntity.getPassword());
         verify(accessTokenEncoder).encode(token);
     }
     @Test
