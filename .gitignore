@@ -124,6 +124,9 @@ fabric.properties
 # BlueJ files
 *.ctxt
 
+#Env file
+.env
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
