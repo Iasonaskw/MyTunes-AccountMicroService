@@ -13,10 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws  Exception{
 <span class="nc" id="L15">        httpSecurity</span>
-<span class="nc" id="L16">                .csrf().disable()</span>
-<span class="nc" id="L17">                .formLogin().disable()</span>
-<span class="nc" id="L18">                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);</span>
-<span class="nc" id="L19">        return httpSecurity.build();</span>
+<span class="nc" id="L16">                .formLogin().disable()</span>
+<span class="nc" id="L17">                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);</span>
+<span class="nc" id="L18">        return httpSecurity.build();</span>
     }
 
 }
