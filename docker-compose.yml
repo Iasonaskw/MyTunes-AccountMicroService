@@ -43,6 +43,7 @@ services:
 networks:
   app_network:
     driver: bridge
+    external: false
 
 volumes:
   mysql_data:
