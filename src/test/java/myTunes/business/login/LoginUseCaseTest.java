@@ -1,8 +1,6 @@
 package myTunes.business.login;
 
-import com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.auth.InvalidCredentialsException;
 import myTunes.business.accestoken.AccessTokenEncoder;
-import myTunes.domain.AccessToken;
 import myTunes.domain.login.LoginRequest;
 import myTunes.domain.login.LoginResponse;
 import myTunes.persistence.UserRepository;

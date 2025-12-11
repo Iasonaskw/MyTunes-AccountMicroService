@@ -2,7 +2,6 @@ package myTunes.business.user;
 
 import myTunes.business.accestoken.exception.UnauthorizedDataAccessException;
 import myTunes.business.user.impl.GetUserUseCaseImpl;
-import myTunes.domain.AccessToken;
 import myTunes.domain.user.User;
 import myTunes.persistence.UserRepository;
 import myTunes.persistence.entity.RoleEnum;

@@ -10,8 +10,6 @@ import myTunes.persistence.UserRepository;
 import myTunes.persistence.entity.RoleEnum;
 import myTunes.persistence.entity.UserEntity;
 import myTunes.persistence.entity.UserRoleEntity;
-import myTunes.security.PasswordEncoderConfig;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +19,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     @Transactional
     @Override
     public CreateUserResponse createUser(CreateUserRequest request){
@@ -31,10 +28,10 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
         if(userRepository.existsByEmail(request.getEmail())){
             throw new InvalidEmailException("EMAIL_ALREADY_IN_USE");
         }
-        String encodedPassword = this.passwordEncoder.encode(request.getPassword());
+
         UserEntity newUser = UserEntity.builder()
                 .username(request.getUsername())
-                .password(encodedPassword)
+                .password(request.getPassword())
                 .email(request.getEmail())
                 .build();
 

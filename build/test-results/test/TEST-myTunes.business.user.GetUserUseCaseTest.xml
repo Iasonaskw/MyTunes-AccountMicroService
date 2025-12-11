@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="myTunes.business.user.GetUserUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-11-18T20:18:16" hostname="DESKTOP-517IG1Q" time="0.062">
-  <properties/>
-  <testcase name="getAccountWithUserRole()" classname="myTunes.business.user.GetUserUseCaseTest" time="0.049"/>
-  <testcase name="getAccountWithIncorrectId()" classname="myTunes.business.user.GetUserUseCaseTest" time="0.005"/>
-  <testcase name="getAccountWithAdminRole()" classname="myTunes.business.user.GetUserUseCaseTest" time="0.006"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

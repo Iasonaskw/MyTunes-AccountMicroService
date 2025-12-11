@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="myTunes.business.user.CreateUserUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-11-18T20:18:16" hostname="DESKTOP-517IG1Q" time="0.021">
-  <properties/>
-  <testcase name="testCreateAccountWithExistingEmail()" classname="myTunes.business.user.CreateUserUseCaseTest" time="0.005"/>
-  <testcase name="testCreateAccountWithExistingUsername()" classname="myTunes.business.user.CreateUserUseCaseTest" time="0.005"/>
-  <testcase name="createUser()" classname="myTunes.business.user.CreateUserUseCaseTest" time="0.01"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

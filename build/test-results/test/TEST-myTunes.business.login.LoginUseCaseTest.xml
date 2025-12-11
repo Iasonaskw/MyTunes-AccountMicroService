@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="myTunes.business.login.LoginUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-11-18T20:18:15" hostname="DESKTOP-517IG1Q" time="1.256">
-  <properties/>
-  <testcase name="login()" classname="myTunes.business.login.LoginUseCaseTest" time="1.241"/>
-  <testcase name="accountDoesNotExist()" classname="myTunes.business.login.LoginUseCaseTest" time="0.008"/>
-  <testcase name="missMatchPasswordException()" classname="myTunes.business.login.LoginUseCaseTest" time="0.004"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

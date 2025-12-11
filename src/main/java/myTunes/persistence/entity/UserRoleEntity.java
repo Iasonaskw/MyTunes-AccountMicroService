@@ -23,7 +23,7 @@ public class UserRoleEntity {
     private RoleEnum role;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "user_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private UserEntity user;

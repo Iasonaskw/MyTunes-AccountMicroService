@@ -9,7 +9,6 @@ import myTunes.domain.user.CreateUserRequest;
 import myTunes.domain.user.CreateUserResponse;
 import myTunes.domain.user.UpdateUserRequest;
 import myTunes.domain.user.User;
-import myTunes.security.isauthenticated.IsAuthenticated;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000/")
 public class UserController {
     private final CreateUserUseCase createUserUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
@@ -32,21 +30,21 @@ public class UserController {
         CreateUserResponse response = createUserUseCase.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @IsAuthenticated
-    @PutMapping({"(id)"})
+
+    @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable("id") long id, @RequestBody @Valid UpdateUserRequest request){
         request.setId(id);
         updateUserUseCase.updateUser(request);
         return ResponseEntity.noContent().build();
     }
-    @IsAuthenticated
-    @PutMapping({"(id)"})
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id){
         deleteUserUseCase.deleteUser(id);
+        deleteUserUseCase.sendMessage(id);
         return ResponseEntity.noContent().build();
     }
 
-    @IsAuthenticated
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") final long id) {
         final Optional<User> userOptional = getUserUseCase.getUser(id);
